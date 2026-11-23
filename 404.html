@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script>if(location.pathname==='/'){location.replace('/p/local-dev-canvas?mockLogin=1&connectorsPreview=1&connectorFusion=1');}</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="OJO is an AI-native product creation platform that turns ideas, prompts, images, and Figma designs into live prototypes and working apps on one canvas.">
+    <title>OJO</title>
+    <link rel="icon" type="image/x-icon" href="/_static/canvas/ojo.ico">
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("darkMode") === "true") {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <!-- 尽早采集 FP/FCP/LCP，数据存到 window.__perfMetrics -->
+    <script>
+      (function () {
+        var d = {};
+        try {
+          new PerformanceObserver(function (list) {
+            list.getEntries().forEach(function (e) {
+              if (e.name === "first-paint" && d.firstPaintMs == null)
+                d.firstPaintMs = Math.round(e.startTime);
+              if (e.name === "first-contentful-paint" && d.fcpMs == null)
+                d.fcpMs = Math.round(e.startTime);
+            });
+          }).observe({ type: "paint", buffered: true });
+          new PerformanceObserver(function (list) {
+            var entries = list.getEntries();
+            if (entries.length)
+              d.fmpMs = Math.round(entries[entries.length - 1].startTime);
+          }).observe({ type: "largest-contentful-paint", buffered: true });
+        } catch (e) {}
+        window.__perfMetrics = d;
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;500;700;900&amp;family=Google+Sans+Flex:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&amp;display=swap" rel="stylesheet">
+    <style>
+      /* 阻止浏览器的滚动手势导航 */
+      body {
+        overscroll-behavior-x: none;
+      }
+      html {
+        overscroll-behavior-x: none;
+      }
+      #root {
+        border-radius: 20px;
+      }
+      #ojo-html-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        width: 100vw;
+        height: 100vh;
+        background: #ffffff;
+        color: rgba(0, 0, 0, 0.5);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        pointer-events: none;
+      }
+      .dark #ojo-html-loading {
+        background: #1f1f1f;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      #ojo-html-loading img {
+        display: block;
+        height: 40px;
+        width: auto;
+        flex-shrink: 0;
+      }
+      #ojo-html-loading-text {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 20px;
+        background-size: 200% 100%;
+        background-image: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.5) 38%,
+          #000000 50%,
+          rgba(0, 0, 0, 0.5) 62%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: ojo-html-loading-text-sweep 1.8s ease-in-out infinite;
+      }
+      .dark #ojo-html-loading-text {
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.7) 0%,
+          rgba(255, 255, 255, 0.7) 38%,
+          rgba(255, 255, 255, 0.98) 50%,
+          rgba(255, 255, 255, 0.7) 62%,
+          rgba(255, 255, 255, 0.7) 100%
+        );
+      }
+      @keyframes ojo-html-loading-text-sweep {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%;
+        }
+      }
+    </style>
+  <script defer src="/_static/canvas/vendors-node_modules_pnpm_grafana_faro-web-sdk_2_8_1_node_modules_grafana_faro-web-sdk_dist_e-4fad6e.8eca4915881b1333.js?cc590a353fd20ed1"></script><script defer src="/_static/canvas/main.50fbfe33e4c49577.js?cc590a353fd20ed1"></script></head>
+  <body>
+    <div id="ojo-html-loading" aria-live="polite" aria-busy="true">
+      <img src="/_static/canvas/assets/images/ojo-logo.svg" alt="OJO" draggable="false">
+      <span id="ojo-html-loading-text">Loading...</span>
+    </div>
+    <script>
+      (function () {
+        var loadingTextByLocale = {
+          en: "Loading...",
+          es: "Cargando...",
+          ja: "読み込み中...",
+          ko: "로딩 중...",
+          zh: "加载中...",
+          "zh-HK": "加載中...",
+        };
+
+        function readCookie(name) {
+          var escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          var match = document.cookie.match(new RegExp("(?:^|; )" + escapedName + "=([^;]*)"));
+          return match ? decodeURIComponent(match[1]) : "";
+        }
+
+        function normalizeLocale(value) {
+          var normalized = String(value || "").trim();
+          if (!normalized) {
+            return "en";
+          }
+          var lower = normalized.toLowerCase();
+          if (
+            lower.indexOf("zh-hk") === 0 ||
+            lower.indexOf("zh-mo") === 0 ||
+            lower.indexOf("zh-tw") === 0 ||
+            lower.indexOf("zh-hant") === 0
+          ) {
+            return "zh-HK";
+          }
+          if (lower.indexOf("zh") === 0) {
+            return "zh";
+          }
+          if (lower.indexOf("ja") === 0) {
+            return "ja";
+          }
+          if (lower.indexOf("ko") === 0) {
+            return "ko";
+          }
+          if (lower.indexOf("es") === 0) {
+            return "es";
+          }
+          if (lower.indexOf("en") === 0) {
+            return "en";
+          }
+          return "en";
+        }
+
+        var locale = "en";
+        try {
+          locale = normalizeLocale(
+            localStorage.getItem("ojo.locale") ||
+              localStorage.getItem("zk.locale") ||
+              readCookie("ojo_locale") ||
+              readCookie("zk_locale") ||
+              navigator.language,
+          );
+        } catch (e) {
+          locale = normalizeLocale(navigator.language);
+        }
+
+        var loadingText = document.getElementById("ojo-html-loading-text");
+        if (loadingText) {
+          loadingText.textContent = loadingTextByLocale[locale] || loadingTextByLocale.en;
+        }
+      })();
+    </script>
+    <div id="root"></div>
+    <script>
+      // 阻止触控板手势导航，但保留画布平移功能
+      window.addEventListener(
+        "wheel",
+        (e) => {
+          // 阻止浏览器缩放（避免与画布缩放手势冲突）
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            return;
+          }
+
+          // 阻止任何水平滚动导致的浏览器前进/后退手势
+          if (e.deltaX !== 0) {
+            e.preventDefault();
+          }
+        },
+        { passive: false, capture: true },
+      );
+
+      document.addEventListener("keydown", (e) => {
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          (e.key === "+" ||
+            e.key === "-" ||
+            e.key === "=" ||
+            e.keyCode === 187 ||
+            e.keyCode === 189)
+        ) {
+          e.preventDefault();
+        }
+        // 阻止 Ctrl/Cmd + 0 重置缩放
+        if ((e.ctrlKey || e.metaKey) && (e.key === "0" || e.keyCode === 48)) {
+          e.preventDefault();
+        }
+      });
+    </script>
+  
+
+</body></html>
