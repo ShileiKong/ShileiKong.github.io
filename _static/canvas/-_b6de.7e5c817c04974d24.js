@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_irise_web_canvas=self.webpackChunk_irise_web_canvas||[]).push([["-_b6de"],{"?b6de"(){}}]);
